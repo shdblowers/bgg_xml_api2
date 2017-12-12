@@ -1,5 +1,7 @@
 # BggXmlApi2
 
+[![Build Status](https://travis-ci.org/shdblowers/bgg_xml_api2.svg?branch=master)](https://travis-ci.org/shdblowers/bgg_xml_api2)
+
 Details about the BGG API is found on their [wiki page](https://boardgamegeek.com/wiki/page/BGG_XML_API2).
 
 ## Installation
