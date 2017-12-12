@@ -1,0 +1,32 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://www.boardgamegeek.com/xmlapi2/search?query=Lords%20of%20Waterdeep"
+    },
+    "response": {
+      "binary": false,
+      "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?><items total=\"10\" termsofuse=\"http://boardgamegeek.com/xmlapi/termsofuse\">\t\t\t<item type=\"boardgame\" id=\"110327\">\n\t\t\t<name type=\"primary\" value=\"Lords of Waterdeep\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2012\" />\n\t\t\t\t\t</item>\n\t\t\t<item type=\"boardgame\" id=\"122996\">\n\t\t\t<name type=\"primary\" value=\"Lords of Waterdeep: Inevitable Betrayal Promo Card\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2012\" />\n\t\t\t\t\t</item>\n\t\t\t<item type=\"boardgame\" id=\"146704\">\n\t\t\t<name type=\"primary\" value=\"Lords of Waterdeep: Rapid Expansion Promo Card\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2013\" />\n\t\t\t\t\t</item>\n\t\t\t<item type=\"boardgame\" id=\"134342\">\n\t\t\t<name type=\"primary\" value=\"Lords of Waterdeep: Scoundrels of Skullport\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2013\" />\n\t\t\t\t\t</item>\n\t\t\t\t<item type=\"boardgameexpansion\" id=\"122996\">\n\t\t\t<name type=\"primary\" value=\"Lords of Waterdeep: Inevitable Betrayal Promo Card\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2012\" />\n\t\t\t\t\t</item>\n\t\t\t<item type=\"boardgameexpansion\" id=\"146704\">\n\t\t\t<name type=\"primary\" value=\"Lords of Waterdeep: Rapid Expansion Promo Card\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2013\" />\n\t\t\t\t\t</item>\n\t\t\t<item type=\"boardgameexpansion\" id=\"134342\">\n\t\t\t<name type=\"primary\" value=\"Lords of Waterdeep: Scoundrels of Skullport\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2013\" />\n\t\t\t\t\t</item>\n\t\t\t\t\t\t\t\t<item type=\"videogame\" id=\"151172\">\n\t\t\t<name type=\"primary\" value=\"Lords of Waterdeep\"/>\t\t\t\n\t\t\t\t\t</item>\n\t\t\t<item type=\"videogame\" id=\"234749\">\n\t\t\t<name type=\"primary\" value=\"Lords of Waterdeep - Undermountain\"/>\t\t\t\n\t\t\t\t\t</item>\n\t\t\t<item type=\"videogame\" id=\"234750\">\n\t\t\t<name type=\"primary\" value=\"Lords of Waterdeep: Skullport expansion\"/>\t\t\t\n\t\t\t\t\t</item>\n\t</items>",
+      "headers": {
+        "Server": "nginx/1.12.2",
+        "Date": "Tue, 12 Dec 2017 17:44:08 GMT",
+        "Content-Type": "text/xml; charset=\"UTF-8\"",
+        "Transfer-Encoding": "chunked",
+        "Vary": "Accept-Encoding",
+        "X-Powered-By": "PHP/5.5.38",
+        "Set-Cookie": "SessionID=d64b9c3782f1560f37a47b40a5f652897c8e7c5d; expires=Tue, 12-Dec-2017 18:44:08 GMT; Max-Age=3600; path=/; domain=.boardgamegeek.com",
+        "Expires": "Thu, 19 Nov 1981 08:52:00 GMT",
+        "Cache-Control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+        "Pragma": "no-cache",
+        "Access-Control-Allow-Origin": "*",
+        "X-FastCGI-Cache": "MISS"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

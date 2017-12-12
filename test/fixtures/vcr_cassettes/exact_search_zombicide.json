@@ -1,0 +1,32 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://www.boardgamegeek.com/xmlapi2/search?query=Zombicide&exact=1"
+    },
+    "response": {
+      "binary": false,
+      "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?><items total=\"1\" termsofuse=\"http://boardgamegeek.com/xmlapi/termsofuse\">\t\t\t<item type=\"boardgame\" id=\"113924\">\n\t\t\t<name type=\"primary\" value=\"Zombicide\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2012\" />\n\t\t\t\t\t</item>\n\t\t\t\t\t\t\t</items>",
+      "headers": {
+        "Server": "nginx/1.12.2",
+        "Date": "Tue, 12 Dec 2017 17:31:16 GMT",
+        "Content-Type": "text/xml; charset=\"UTF-8\"",
+        "Transfer-Encoding": "chunked",
+        "Vary": "Accept-Encoding",
+        "X-Powered-By": "PHP/5.5.38",
+        "Set-Cookie": "SessionID=4567d0bffc07a2dda5bbc2c90214a824829a2079; expires=Tue, 12-Dec-2017 18:31:12 GMT; Max-Age=3600; path=/; domain=.boardgamegeek.com",
+        "Expires": "Thu, 19 Nov 1981 08:52:00 GMT",
+        "Cache-Control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+        "Pragma": "no-cache",
+        "Access-Control-Allow-Origin": "*",
+        "X-FastCGI-Cache": "MISS"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
