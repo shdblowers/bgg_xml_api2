@@ -43,7 +43,7 @@ defmodule BggXmlApi2.ItemTest do
 
   test "get game info" do
     use_cassette "info_on_jaipur" do
-      assert Item.info("54043") == %BggXmlApi2.Item{id: '54043', max_players: '2', min_players: '2', name: 'Jaipur', type: nil, year_published: nil}
+      assert Item.info("54043") == %BggXmlApi2.Item{id: '54043', max_players: '2', min_players: '2', name: 'Jaipur', type: 'boardgame', year_published: '2009'}
     end
   end
 end
