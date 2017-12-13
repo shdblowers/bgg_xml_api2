@@ -56,8 +56,8 @@ defmodule BggXmlApi2.Item do
       year_published: ~x"./yearpublished/@value" |> transform_by(&if_charlist_convert_to_string/1),
       thumbnail: ~x"./thumbnail/text()" |> transform_by(&if_charlist_convert_to_string/1),
       description: ~x"./description/text()"l |> transform_by(&Enum.join/1),
-      min_players: ~x"./minplayers/@value" |> transform_by(&if_charlist_convert_to_string/1),
-      max_players: ~x"./maxplayers/@value" |> transform_by(&if_charlist_convert_to_string/1)
+      min_players: ~x"./minplayers/@value" |> transform_by(&if_charlist_convert_to_integer/1),
+      max_players: ~x"./maxplayers/@value" |> transform_by(&if_charlist_convert_to_integer/1)
     )
   end
 
@@ -68,6 +68,10 @@ defmodule BggXmlApi2.Item do
 
   defp if_charlist_convert_to_string(possible_charlist) do
     if is_list(possible_charlist) do List.to_string(possible_charlist) else possible_charlist end
+  end
+
+  defp if_charlist_convert_to_integer(possible_charlist) do
+    if is_list(possible_charlist) do List.to_integer(possible_charlist) else possible_charlist end
   end
 
 end

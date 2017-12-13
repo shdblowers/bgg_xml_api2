@@ -55,8 +55,8 @@ defmodule BggXmlApi2.ItemTest do
         year_published: "2009",
         description: jaipur_description(),
         thumbnail: "https://cf.geekdo-images.com/images/pic725500_t.jpg",
-        min_players: "2", 
-        max_players: "2"
+        min_players: 2, 
+        max_players: 2
       }
     end
   end
