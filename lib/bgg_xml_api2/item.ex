@@ -1,4 +1,7 @@
 defmodule BggXmlApi2.Item do
+  @moduledoc """
+  A set of functions for searching and retrieving information on Items.
+  """
   
   import SweetXml
   
@@ -16,18 +19,24 @@ defmodule BggXmlApi2.Item do
     :max_players
   ]
   
-  def search(query, opts \\ []) do
+  @doc """
+  Search for an Item based on `name`.
+  """
+  def search(name, opts \\ []) do
     exact_search = Keyword.get(opts, :exact, false)
 
     exact = if (exact_search), do: "&exact=1", else: ""
 
-    "/search?query=#{URI.encode(query)}#{exact}"
+    "/search?query=#{URI.encode(name)}#{exact}"
     |> BggApi.get!()
     |> Map.get(:body)
     |> retrieve_item_details(~x"//item"l)
     |> Enum.map(&process_item/1)
   end
 
+  @doc """
+  Retrieve information on an Item based on `id`.
+  """
   def info(id, opts \\ []) do
     "/thing?id=#{id}"
     |> BggApi.get!()
