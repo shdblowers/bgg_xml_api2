@@ -11,6 +11,7 @@ defmodule BggXmlApi2.Item do
     :name,
     :type,
     :year_published,
+    :description,
     :min_players,
     :max_players
   ]
@@ -24,17 +25,15 @@ defmodule BggXmlApi2.Item do
     |> BggApi.get!()
     |> Map.get(:body)
     |> retrieve_item_details(~x"//item"l)
-    |> Enum.map(&(struct(__MODULE__, &1)))
+    |> Enum.map(&process_item/1)
   end
 
   def info(id, opts \\ []) do
-    result = 
-      "/thing?id=#{id}"
-      |> BggApi.get!()
-      |> Map.get(:body)
-      |> retrieve_item_details(~x"//item")
-
-    struct(__MODULE__, result)
+    "/thing?id=#{id}"
+    |> BggApi.get!()
+    |> Map.get(:body)
+    |> retrieve_item_details(~x"//item")
+    |> process_item()
   end
 
   defp retrieve_item_details(xml, path_to_item) do
@@ -42,12 +41,18 @@ defmodule BggXmlApi2.Item do
       xml,
       path_to_item, 
       id: ~x"./@id", 
-      name: ~x"./name[@type='primary']/@value", 
-      min_players: ~x"./minplayers/@value",
-      max_players: ~x"./maxplayers/@value",
+      name: ~x"./name[@type='primary']/@value",
       type: ~x"./@type", 
-      year_published: ~x"./yearpublished/@value"
+      year_published: ~x"./yearpublished/@value",
+      description: ~x"./description/text()"l |> transform_by(&Enum.join/1),
+      min_players: ~x"./minplayers/@value",
+      max_players: ~x"./maxplayers/@value"
     )
+  end
+
+  defp process_item(item) do
+    item = Map.update(item, :description, nil, &(if &1 == "" do nil else &1 end))
+    struct(__MODULE__, item)
   end
 
 end
