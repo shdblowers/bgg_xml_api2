@@ -1,0 +1,32 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://www.boardgamegeek.com/xmlapi2/search?query=Eldritch%20Horror&type=boardgame"
+    },
+    "response": {
+      "binary": false,
+      "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?><items total=\"9\" termsofuse=\"http://boardgamegeek.com/xmlapi/termsofuse\">\t\t\t<item type=\"boardgame\" id=\"146021\">\n\t\t\t<name type=\"primary\" value=\"Eldritch Horror\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2013\" />\n\t\t\t\t\t</item>\n\t\t\t<item type=\"boardgame\" id=\"220913\">\n\t\t\t<name type=\"primary\" value=\"Eldritch Horror: Cities in Ruin\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2017\" />\n\t\t\t\t\t</item>\n\t\t\t<item type=\"boardgame\" id=\"154842\">\n\t\t\t<name type=\"primary\" value=\"Eldritch Horror: Forsaken Lore\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2014\" />\n\t\t\t\t\t</item>\n\t\t\t<item type=\"boardgame\" id=\"236930\">\n\t\t\t<name type=\"primary\" value=\"Eldritch Horror: Masks of Nyarlathotep\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2018\" />\n\t\t\t\t\t</item>\n\t\t\t<item type=\"boardgame\" id=\"164167\">\n\t\t\t<name type=\"primary\" value=\"Eldritch Horror: Mountains of Madness\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2014\" />\n\t\t\t\t\t</item>\n\t\t\t<item type=\"boardgame\" id=\"197586\">\n\t\t\t<name type=\"primary\" value=\"Eldritch Horror: Signs of Carcosa\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2016\" />\n\t\t\t\t\t</item>\n\t\t\t<item type=\"boardgame\" id=\"177182\">\n\t\t\t<name type=\"primary\" value=\"Eldritch Horror: Strange Remnants\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2015\" />\n\t\t\t\t\t</item>\n\t\t\t<item type=\"boardgame\" id=\"209686\">\n\t\t\t<name type=\"primary\" value=\"Eldritch Horror: The Dreamlands\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2017\" />\n\t\t\t\t\t</item>\n\t\t\t<item type=\"boardgame\" id=\"181817\">\n\t\t\t<name type=\"primary\" value=\"Eldritch Horror: Under the Pyramids\"/>\t\t\t\n\t\t\t\t\t\t\t<yearpublished value=\"2015\" />\n\t\t\t\t\t</item>\n\t</items>",
+      "headers": {
+        "Server": "nginx/1.12.2",
+        "Date": "Wed, 13 Dec 2017 17:42:58 GMT",
+        "Content-Type": "text/xml; charset=\"UTF-8\"",
+        "Transfer-Encoding": "chunked",
+        "Vary": "Accept-Encoding",
+        "X-Powered-By": "PHP/5.5.38",
+        "Set-Cookie": "SessionID=4d25b3d27344e53fc3abc3f47a0ffd279d2814c4; expires=Wed, 13-Dec-2017 18:42:58 GMT; Max-Age=3600; path=/; domain=.boardgamegeek.com",
+        "Expires": "Thu, 19 Nov 1981 08:52:00 GMT",
+        "Cache-Control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+        "Pragma": "no-cache",
+        "Access-Control-Allow-Origin": "*",
+        "X-FastCGI-Cache": "MISS"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

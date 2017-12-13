@@ -45,6 +45,14 @@ defmodule BggXmlApi2.ItemTest do
     end
   end
 
+  test "giving the type in the search will filter by that type" do
+    use_cassette "type_search_eldritch_horror" do
+      result = Item.search("Eldritch Horror", type: ["boardgame"])
+
+      assert Enum.all?(result, &(&1.type == "boardgame"))
+    end
+  end
+
   test "get game info" do
     use_cassette "info_on_jaipur" do
       assert Item.info("54043") == 

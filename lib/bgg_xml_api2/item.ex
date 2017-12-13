@@ -25,10 +25,12 @@ defmodule BggXmlApi2.Item do
   """
   def search(name, opts \\ []) do
     exact_search = Keyword.get(opts, :exact, false)
-
     exact = if (exact_search), do: "&exact=1", else: ""
 
-    "/search?query=#{URI.encode(name)}#{exact}"
+    type_search = Keyword.get(opts, :type, false)
+    type = if type_search, do: "&type=#{Enum.join(type_search, ",")}", else: ""
+
+    "/search?query=#{URI.encode(name)}#{exact}#{type}"
     |> BggApi.get!()
     |> Map.get(:body)
     |> retrieve_item_details(~x"//item"l)
