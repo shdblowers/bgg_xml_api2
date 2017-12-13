@@ -14,6 +14,7 @@ defmodule BggXmlApi2.Item do
     :name,
     :type,
     :year_published,
+    :thumbnail,
     :description,
     :min_players,
     :max_players
@@ -49,19 +50,24 @@ defmodule BggXmlApi2.Item do
     xpath(
       xml,
       path_to_item, 
-      id: ~x"./@id", 
-      name: ~x"./name[@type='primary']/@value",
-      type: ~x"./@type", 
-      year_published: ~x"./yearpublished/@value",
+      id: ~x"./@id" |> transform_by(&if_charlist_convert_to_string/1), 
+      name: ~x"./name[@type='primary']/@value" |> transform_by(&if_charlist_convert_to_string/1),
+      type: ~x"./@type" |> transform_by(&if_charlist_convert_to_string/1), 
+      year_published: ~x"./yearpublished/@value" |> transform_by(&if_charlist_convert_to_string/1),
+      thumbnail: ~x"./thumbnail/text()" |> transform_by(&if_charlist_convert_to_string/1),
       description: ~x"./description/text()"l |> transform_by(&Enum.join/1),
-      min_players: ~x"./minplayers/@value",
-      max_players: ~x"./maxplayers/@value"
+      min_players: ~x"./minplayers/@value" |> transform_by(&if_charlist_convert_to_string/1),
+      max_players: ~x"./maxplayers/@value" |> transform_by(&if_charlist_convert_to_string/1)
     )
   end
 
   defp process_item(item) do
     item = Map.update(item, :description, nil, &(if &1 == "" do nil else &1 end))
     struct(__MODULE__, item)
+  end
+
+  defp if_charlist_convert_to_string(possible_charlist) do
+    if is_list(possible_charlist) do List.to_string(possible_charlist) else possible_charlist end
   end
 
 end

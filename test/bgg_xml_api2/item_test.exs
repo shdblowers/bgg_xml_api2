@@ -14,13 +14,14 @@ defmodule BggXmlApi2.ItemTest do
       assert Enum.member?(
         item_search_results,
         %BggXmlApi2.Item{
-          id: '110327', 
+          id: "110327", 
           max_players: nil, 
           min_players: nil, 
-          name: 'Lords of Waterdeep', 
-          type: 'boardgame', 
-          year_published: '2012',
-          description: nil
+          name: "Lords of Waterdeep", 
+          type: "boardgame", 
+          year_published: "2012",
+          description: nil,
+          thumbnail: nil
         }
       )
     end
@@ -31,13 +32,14 @@ defmodule BggXmlApi2.ItemTest do
       assert Item.search("Zombicide", exact: true) == 
         [
           %BggXmlApi2.Item{
-            id: '113924', 
+            id: "113924", 
             max_players: nil, 
             min_players: nil,   
-            name: 'Zombicide', 
-            type: 'boardgame', 
-            year_published: '2012',
-            description: nil
+            name: "Zombicide", 
+            type: "boardgame", 
+            year_published: "2012",
+            description: nil,
+            thumbnail: nil
           }
         ]
     end
@@ -47,13 +49,14 @@ defmodule BggXmlApi2.ItemTest do
     use_cassette "info_on_jaipur" do
       assert Item.info("54043") == 
       %BggXmlApi2.Item{
-        id: '54043',
-        name: 'Jaipur',
-        type: 'boardgame',
-        year_published: '2009',
+        id: "54043",
+        name: "Jaipur",
+        type: "boardgame",
+        year_published: "2009",
         description: jaipur_description(),
-        min_players: '2', 
-        max_players: '2'
+        thumbnail: "https://cf.geekdo-images.com/images/pic725500_t.jpg",
+        min_players: "2", 
+        max_players: "2"
       }
     end
   end
