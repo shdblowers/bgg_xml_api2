@@ -2,13 +2,13 @@ defmodule BggXmlApi2.Item do
   @moduledoc """
   A set of functions for searching and retrieving information on Items.
   """
-  
+
   import SweetXml
-  
+
   alias BggXmlApi2.Api, as: BggApi
 
   @enforce_keys [:id, :name]
-  
+
   defstruct [
     :id,
     :name,
@@ -19,7 +19,7 @@ defmodule BggXmlApi2.Item do
     :min_players,
     :max_players
   ]
-  
+
   @doc """
   Search for an Item based on `name`.
   """
@@ -56,10 +56,10 @@ defmodule BggXmlApi2.Item do
   defp retrieve_item_details(xml, path_to_item) do
     xpath(
       xml,
-      path_to_item, 
-      id: ~x"./@id" |> transform_by(&if_charlist_convert_to_string/1), 
+      path_to_item,
+      id: ~x"./@id" |> transform_by(&if_charlist_convert_to_string/1),
       name: ~x"./name[@type='primary']/@value" |> transform_by(&if_charlist_convert_to_string/1),
-      type: ~x"./@type" |> transform_by(&if_charlist_convert_to_string/1), 
+      type: ~x"./@type" |> transform_by(&if_charlist_convert_to_string/1),
       year_published: ~x"./yearpublished/@value" |> transform_by(&if_charlist_convert_to_string/1),
       thumbnail: ~x"./thumbnail/text()" |> transform_by(&if_charlist_convert_to_string/1),
       description: ~x"./description/text()"l |> transform_by(&Enum.join/1),
@@ -69,16 +69,29 @@ defmodule BggXmlApi2.Item do
   end
 
   defp process_item(item) do
-    item = Map.update(item, :description, nil, &(if &1 == "" do nil else HtmlEntities.decode(&1) end))
+    item = Map.update(
+      item,
+      :description,
+      nil,
+      &(if &1 == "" do nil else HtmlEntities.decode(&1) end)
+    )
+
     struct(__MODULE__, item)
   end
 
   defp if_charlist_convert_to_string(possible_charlist) do
-    if is_list(possible_charlist) do List.to_string(possible_charlist) else possible_charlist end
+    if is_list(possible_charlist) do
+      List.to_string(possible_charlist)
+    else
+      possible_charlist
+    end
   end
 
   defp if_charlist_convert_to_integer(possible_charlist) do
-    if is_list(possible_charlist) do List.to_integer(possible_charlist) else possible_charlist end
+    if is_list(possible_charlist) do
+      List.to_integer(possible_charlist)
+    else
+      possible_charlist
+    end
   end
-
 end
