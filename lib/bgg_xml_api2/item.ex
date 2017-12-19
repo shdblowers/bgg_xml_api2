@@ -7,7 +7,7 @@ defmodule BggXmlApi2.Item do
 
   alias BggXmlApi2.Api, as: BggApi
 
-  @enforce_keys [:id, :name]
+  @enforce_keys [:id, :name, :type, :year_published]
 
   defstruct [
     :id,
@@ -17,7 +17,10 @@ defmodule BggXmlApi2.Item do
     :thumbnail,
     :description,
     :min_players,
-    :max_players
+    :max_players,
+    :playing_time,
+    :min_play_time,
+    :max_play_time
   ]
 
   @doc """
@@ -64,7 +67,10 @@ defmodule BggXmlApi2.Item do
       thumbnail: ~x"./thumbnail/text()" |> transform_by(&if_charlist_convert_to_string/1),
       description: ~x"./description/text()"l |> transform_by(&Enum.join/1),
       min_players: ~x"./minplayers/@value" |> transform_by(&if_charlist_convert_to_integer/1),
-      max_players: ~x"./maxplayers/@value" |> transform_by(&if_charlist_convert_to_integer/1)
+      max_players: ~x"./maxplayers/@value" |> transform_by(&if_charlist_convert_to_integer/1),
+      playing_time: ~x"./playingtime/@value" |> transform_by(&if_charlist_convert_to_integer/1),
+      min_play_time: ~x"./minplaytime/@value" |> transform_by(&if_charlist_convert_to_integer/1),
+      max_play_time: ~x"./maxplaytime/@value" |> transform_by(&if_charlist_convert_to_integer/1)
     )
   end
 
