@@ -15,13 +15,9 @@ defmodule BggXmlApi2.ItemTest do
         item_search_results,
         %BggXmlApi2.Item{
           id: "110327", 
-          max_players: nil, 
-          min_players: nil, 
           name: "Lords of Waterdeep", 
           type: "boardgame", 
-          year_published: "2012",
-          description: nil,
-          thumbnail: nil
+          year_published: "2012"
         }
       )
     end
@@ -32,14 +28,10 @@ defmodule BggXmlApi2.ItemTest do
       assert Item.search("Zombicide", exact: true) == 
         [
           %BggXmlApi2.Item{
-            id: "113924", 
-            max_players: nil, 
-            min_players: nil,   
-            name: "Zombicide", 
-            type: "boardgame", 
-            year_published: "2012",
-            description: nil,
-            thumbnail: nil
+            id: "113924",
+            name: "Zombicide",
+            type: "boardgame",
+            year_published: "2012"
           }
         ]
     end
@@ -64,7 +56,10 @@ defmodule BggXmlApi2.ItemTest do
         description: jaipur_description(),
         thumbnail: "https://cf.geekdo-images.com/images/pic725500_t.jpg",
         min_players: 2, 
-        max_players: 2
+        max_players: 2,
+        playing_time: 30,
+        min_play_time: 30,
+        max_play_time: 30
       }
     end
   end
