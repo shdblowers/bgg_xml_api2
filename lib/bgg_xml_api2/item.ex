@@ -68,13 +68,14 @@ defmodule BggXmlApi2.Item do
     )
   end
 
+  defp process_item(%{description: ""} = item) do
+    item = %{item | description: nil}
+
+    struct(__MODULE__, item)
+  end
+
   defp process_item(item) do
-    item = Map.update(
-      item,
-      :description,
-      nil,
-      &(if &1 == "" do nil else HtmlEntities.decode(&1) end)
-    )
+    item = Map.update(item, :description, nil, &HtmlEntities.decode/1)
 
     struct(__MODULE__, item)
   end
