@@ -22,7 +22,8 @@ defmodule BggXmlApi2.Mixfile do
       {:sweet_xml, "~> 0.6.5"},
       {:httpoison, "~> 0.13.0"},
       {:html_entities, "~> 0.4.0"},
-      {:exvcr, "~> 0.9.1", only: :test}
+      {:exvcr, "~> 0.9.1", only: :test},
+      {:ex_doc, "~> 0.18.1", only: :dev, runtime: false}
     ]
   end
 end

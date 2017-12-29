@@ -25,7 +25,19 @@ defmodule BggXmlApi2.Item do
 
   @doc """
   Search for an Item based on `name`.
+
+  ## Options
+
+  Options can be:
+
+  * `:exact` - if set to true an exact match search on the name will be done
+
+  * `:type` - a list of strings where each one is a type of item to search for,
+    the types of items available are rpgitem, videogame, boardgame, 
+    boardgameaccessory or boardgameexpansion
+
   """
+  @spec search(String.t(), keyword) :: %__MODULE__{}
   def search(name, opts \\ []) do
     name
     |> build_search_query_string(opts)
@@ -38,6 +50,7 @@ defmodule BggXmlApi2.Item do
   @doc """
   Retrieve information on an Item based on `id`.
   """
+  @spec info(String.t()) :: %__MODULE__{}
   def info(id) do
     "/thing?id=#{id}"
     |> BggApi.get!()
