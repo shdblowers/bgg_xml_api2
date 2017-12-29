@@ -23,7 +23,8 @@ defmodule BggXmlApi2.Mixfile do
       {:httpoison, "~> 0.13.0"},
       {:html_entities, "~> 0.4.0"},
       {:exvcr, "~> 0.9.1", only: :test},
-      {:ex_doc, "~> 0.18.1", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.18.1", only: :dev, runtime: false},
+      {:dialyxir, "~> 0.5.1", only: :dev, runtime: false}
     ]
   end
 end
