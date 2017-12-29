@@ -88,36 +88,44 @@ defmodule BggXmlApi2.Item do
         |> xpath(~x"./@id")
         |> if_charlist_convert_to_string(),
       name:
-        item 
+        item
         |> xpath(~x"./name[@type='primary']/@value")
         |> if_charlist_convert_to_string(),
       type:
-        item 
+        item
         |> xpath(~x"./@type")
         |> if_charlist_convert_to_string(),
       year_published:
-        item 
+        item
         |> xpath(~x"./yearpublished/@value")
         |> if_charlist_convert_to_string(),
       thumbnail:
-        item |> xpath(~x"./thumbnail/text()")
+        item
+        |> xpath(~x"./thumbnail/text()")
         |> if_charlist_convert_to_string(),
       description:
-        item |> xpath(~x"./description/text()"l) |> Enum.join(),
+        item
+        |> xpath(~x"./description/text()"l)
+        |> Enum.join(),
       min_players:
-        item |> xpath(~x"./minplayers/@value")
+        item
+        |> xpath(~x"./minplayers/@value")
         |> if_charlist_convert_to_integer(),
       max_players:
-        item |> xpath(~x"./maxplayers/@value")
+        item
+        |> xpath(~x"./maxplayers/@value")
         |> if_charlist_convert_to_integer(),
       playing_time:
-        item |> xpath(~x"./playingtime/@value")
+        item
+        |> xpath(~x"./playingtime/@value")
         |> if_charlist_convert_to_integer(),
       min_play_time:
-        item |> xpath(~x"./minplaytime/@value")
+        item
+        |> xpath(~x"./minplaytime/@value")
         |> if_charlist_convert_to_integer(),
       max_play_time:
-        item |> xpath(~x"./maxplaytime/@value")
+        item
+        |> xpath(~x"./maxplaytime/@value")
         |> if_charlist_convert_to_integer()
     }
   end
