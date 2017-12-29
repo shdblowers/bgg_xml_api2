@@ -61,16 +61,31 @@ defmodule BggXmlApi2.Item do
       xml,
       path_to_item,
       id: ~x"./@id" |> transform_by(&if_charlist_convert_to_string/1),
-      name: ~x"./name[@type='primary']/@value" |> transform_by(&if_charlist_convert_to_string/1),
+      name:
+        ~x"./name[@type='primary']/@value"
+        |> transform_by(&if_charlist_convert_to_string/1),
       type: ~x"./@type" |> transform_by(&if_charlist_convert_to_string/1),
-      year_published: ~x"./yearpublished/@value" |> transform_by(&if_charlist_convert_to_string/1),
-      thumbnail: ~x"./thumbnail/text()" |> transform_by(&if_charlist_convert_to_string/1),
+      year_published:
+        ~x"./yearpublished/@value"
+        |> transform_by(&if_charlist_convert_to_string/1),
+      thumbnail:
+        ~x"./thumbnail/text()" |> transform_by(&if_charlist_convert_to_string/1),
       description: ~x"./description/text()"l |> transform_by(&Enum.join/1),
-      min_players: ~x"./minplayers/@value" |> transform_by(&if_charlist_convert_to_integer/1),
-      max_players: ~x"./maxplayers/@value" |> transform_by(&if_charlist_convert_to_integer/1),
-      playing_time: ~x"./playingtime/@value" |> transform_by(&if_charlist_convert_to_integer/1),
-      min_play_time: ~x"./minplaytime/@value" |> transform_by(&if_charlist_convert_to_integer/1),
-      max_play_time: ~x"./maxplaytime/@value" |> transform_by(&if_charlist_convert_to_integer/1)
+      min_players:
+        ~x"./minplayers/@value"
+        |> transform_by(&if_charlist_convert_to_integer/1),
+      max_players:
+        ~x"./maxplayers/@value"
+        |> transform_by(&if_charlist_convert_to_integer/1),
+      playing_time:
+        ~x"./playingtime/@value"
+        |> transform_by(&if_charlist_convert_to_integer/1),
+      min_play_time:
+        ~x"./minplaytime/@value"
+        |> transform_by(&if_charlist_convert_to_integer/1),
+      max_play_time:
+        ~x"./maxplaytime/@value"
+        |> transform_by(&if_charlist_convert_to_integer/1)
     )
   end
 
