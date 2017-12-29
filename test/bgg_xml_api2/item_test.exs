@@ -5,35 +5,33 @@ defmodule BggXmlApi2.ItemTest do
   alias BggXmlApi2.Item
 
   setup_all do
-    HTTPoison.start
+    HTTPoison.start()
   end
 
   test "basic search" do
     use_cassette "basic_search_lords_of_waterdeep" do
       item_search_results = Item.search("Lords of Waterdeep")
-      assert Enum.member?(
-        item_search_results,
-        %BggXmlApi2.Item{
-          id: "110327", 
-          name: "Lords of Waterdeep", 
-          type: "boardgame", 
-          year_published: "2012"
-        }
-      )
+
+      assert Enum.member?(item_search_results, %BggXmlApi2.Item{
+               id: "110327",
+               name: "Lords of Waterdeep",
+               type: "boardgame",
+               year_published: "2012"
+             })
     end
   end
 
   test "exact search" do
     use_cassette "exact_search_zombicide" do
-      assert Item.search("Zombicide", exact: true) == 
-        [
-          %BggXmlApi2.Item{
-            id: "113924",
-            name: "Zombicide",
-            type: "boardgame",
-            year_published: "2012"
-          }
-        ]
+      assert Item.search("Zombicide", exact: true) ==
+               [
+                 %BggXmlApi2.Item{
+                   id: "113924",
+                   name: "Zombicide",
+                   type: "boardgame",
+                   year_published: "2012"
+                 }
+               ]
     end
   end
 
@@ -47,20 +45,20 @@ defmodule BggXmlApi2.ItemTest do
 
   test "get game info" do
     use_cassette "info_on_jaipur" do
-      assert Item.info("54043") == 
-      %BggXmlApi2.Item{
-        id: "54043",
-        name: "Jaipur",
-        type: "boardgame",
-        year_published: "2009",
-        description: jaipur_description(),
-        thumbnail: "https://cf.geekdo-images.com/images/pic725500_t.jpg",
-        min_players: 2, 
-        max_players: 2,
-        playing_time: 30,
-        min_play_time: 30,
-        max_play_time: 30
-      }
+      assert Item.info("54043") ==
+               %BggXmlApi2.Item{
+                 id: "54043",
+                 name: "Jaipur",
+                 type: "boardgame",
+                 year_published: "2009",
+                 description: jaipur_description(),
+                 thumbnail: "https://cf.geekdo-images.com/images/pic725500_t.jpg",
+                 min_players: 2,
+                 max_players: 2,
+                 playing_time: 30,
+                 min_play_time: 30,
+                 max_play_time: 30
+               }
     end
   end
 

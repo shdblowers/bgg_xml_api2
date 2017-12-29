@@ -48,7 +48,7 @@ defmodule BggXmlApi2.Item do
 
   defp build_search_query_string(name, opts) do
     exact_search = Keyword.get(opts, :exact, false)
-    exact = if (exact_search), do: "&exact=1", else: ""
+    exact = if exact_search, do: "&exact=1", else: ""
 
     type_search = Keyword.get(opts, :type, false)
     type = if type_search, do: "&type=#{Enum.join(type_search, ",")}", else: ""
