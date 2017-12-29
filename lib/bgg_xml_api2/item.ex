@@ -37,7 +37,7 @@ defmodule BggXmlApi2.Item do
     boardgameaccessory or boardgameexpansion
 
   """
-  @spec search(String.t(), keyword) :: %__MODULE__{}
+  @spec search(String.t(), keyword) :: [%__MODULE__{}]
   def search(name, opts \\ []) do
     name
     |> build_search_query_string(opts)
