@@ -43,7 +43,7 @@ defmodule BggXmlApi2.Item do
     |> build_search_query_string(opts)
     |> BggApi.get!()
     |> Map.get(:body)
-    |> retrieve_item_details(~x"//item"l)
+    |> retrieve_multi_item_details(~x"//item"l)
     |> Enum.map(&process_item/1)
   end
 
@@ -70,36 +70,56 @@ defmodule BggXmlApi2.Item do
   end
 
   defp retrieve_item_details(xml, path_to_item) do
-    xpath(
-      xml,
-      path_to_item,
-      id: ~x"./@id" |> transform_by(&if_charlist_convert_to_string/1),
+    xml
+    |> xpath(path_to_item)
+    |> rid()
+  end
+
+  defp retrieve_multi_item_details(xml, path_to_items) do
+    xml
+    |> xpath(path_to_items)
+    |> Enum.map(&rid/1)
+  end
+
+  defp rid(item) do
+    %{
+      id:
+        item
+        |> xpath(~x"./@id")
+        |> if_charlist_convert_to_string(),
       name:
-        ~x"./name[@type='primary']/@value"
-        |> transform_by(&if_charlist_convert_to_string/1),
-      type: ~x"./@type" |> transform_by(&if_charlist_convert_to_string/1),
+        item 
+        |> xpath(~x"./name[@type='primary']/@value")
+        |> if_charlist_convert_to_string(),
+      type:
+        item 
+        |> xpath(~x"./@type")
+        |> if_charlist_convert_to_string(),
       year_published:
-        ~x"./yearpublished/@value"
-        |> transform_by(&if_charlist_convert_to_string/1),
+        item 
+        |> xpath(~x"./yearpublished/@value")
+        |> if_charlist_convert_to_string(),
       thumbnail:
-        ~x"./thumbnail/text()" |> transform_by(&if_charlist_convert_to_string/1),
-      description: ~x"./description/text()"l |> transform_by(&Enum.join/1),
+        item |> xpath(~x"./thumbnail/text()")
+        |> if_charlist_convert_to_string(),
+      description:
+        item |> xpath(~x"./description/text()"l) |> Enum.join(),
       min_players:
-        ~x"./minplayers/@value"
-        |> transform_by(&if_charlist_convert_to_integer/1),
+        item |> xpath(~x"./minplayers/@value")
+        |> if_charlist_convert_to_integer(),
       max_players:
-        ~x"./maxplayers/@value"
-        |> transform_by(&if_charlist_convert_to_integer/1),
+        item |> xpath(~x"./maxplayers/@value")
+        |> if_charlist_convert_to_integer(),
       playing_time:
-        ~x"./playingtime/@value"
-        |> transform_by(&if_charlist_convert_to_integer/1),
+        item |> xpath(~x"./playingtime/@value")
+        |> if_charlist_convert_to_integer(),
       min_play_time:
-        ~x"./minplaytime/@value"
-        |> transform_by(&if_charlist_convert_to_integer/1),
+        item |> xpath(~x"./minplaytime/@value")
+        |> if_charlist_convert_to_integer(),
       max_play_time:
-        ~x"./maxplaytime/@value"
-        |> transform_by(&if_charlist_convert_to_integer/1)
-    )
+        item |> xpath(~x"./maxplaytime/@value")
+        |> if_charlist_convert_to_integer()
+    }
   end
 
   defp process_item(%{description: ""} = item) do
