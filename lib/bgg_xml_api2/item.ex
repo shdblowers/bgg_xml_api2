@@ -50,13 +50,18 @@ defmodule BggXmlApi2.Item do
   @doc """
   Retrieve information on an Item based on `id`.
   """
-  @spec info(String.t()) :: %__MODULE__{}
+  @spec info(String.t()) :: {:ok, %BggXmlApi2.Item{}} | {:error, :no_results}
   def info(id) do
-    "/thing?id=#{id}"
-    |> BggApi.get!()
-    |> Map.get(:body)
-    |> retrieve_item_details(~x"//item")
-    |> process_item()
+    item =
+      "/thing?id=#{id}"
+      |> BggApi.get!()
+      |> Map.get(:body)
+      |> retrieve_item_details(~x"//item")
+
+    case item do
+      {:ok, item} -> {:ok, process_item(item)}
+      {:error, :no_results} -> {:error, :no_results}
+    end
   end
 
   defp build_search_query_string(name, opts) do
@@ -70,9 +75,10 @@ defmodule BggXmlApi2.Item do
   end
 
   defp retrieve_item_details(xml, path_to_item) do
-    xml
-    |> xpath(path_to_item)
-    |> rid()
+    case xpath(xml, path_to_item) do
+      nil -> {:error, :no_results}
+      item -> {:ok, rid(item)}
+    end
   end
 
   defp retrieve_multi_item_details(xml, path_to_items) do

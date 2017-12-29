@@ -9,7 +9,7 @@ defmodule BggXmlApi2Test do
   test "board game info convenience function" do
     use_cassette "search_and_info_on_scythe" do
       assert BggXmlApi2.board_game_info("Scythe") ==
-               %BggXmlApi2.Item{
+               {:ok, %BggXmlApi2.Item{
                  id: "169786",
                  name: "Scythe",
                  type: "boardgame",
@@ -22,7 +22,14 @@ defmodule BggXmlApi2Test do
                  playing_time: 115,
                  min_play_time: 90,
                  max_play_time: 115
-               }
+               }}
+    end
+  end
+
+  test "when search finds nothing it will return error" do
+    use_cassette "no_results_search" do
+      assert BggXmlApi2.board_game_info("F3bnu5yca2mgFZ1J") ==
+               {:error, :no_results}
     end
   end
 

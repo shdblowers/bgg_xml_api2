@@ -21,6 +21,12 @@ defmodule BggXmlApi2.ItemTest do
     end
   end
 
+  test "when search finds nothing it will return empty list" do
+    use_cassette "no_results_search" do
+      assert Item.search("F3bnu5yca2mgFZ1J") == []
+    end
+  end
+
   test "exact search" do
     use_cassette "exact_search_zombicide" do
       assert Item.search("Zombicide", exact: true) ==
@@ -46,7 +52,7 @@ defmodule BggXmlApi2.ItemTest do
   test "get game info" do
     use_cassette "info_on_jaipur" do
       assert Item.info("54043") ==
-               %BggXmlApi2.Item{
+               {:ok, %BggXmlApi2.Item{
                  id: "54043",
                  name: "Jaipur",
                  type: "boardgame",
@@ -59,7 +65,13 @@ defmodule BggXmlApi2.ItemTest do
                  playing_time: 30,
                  min_play_time: 30,
                  max_play_time: 30
-               }
+               }}
+    end
+  end
+
+  test "get info on a non-existant ID will return :error with a message" do
+    use_cassette "info_on_nothing" do
+      assert Item.info("XxX") == {:error, :no_results}
     end
   end
 

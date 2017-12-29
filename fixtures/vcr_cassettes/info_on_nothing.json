@@ -1,0 +1,32 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://www.boardgamegeek.com/xmlapi2/thing?id=XxX"
+    },
+    "response": {
+      "binary": false,
+      "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?><items termsofuse=\"http://boardgamegeek.com/xmlapi/termsofuse\"></items>",
+      "headers": {
+        "Server": "nginx/1.12.2",
+        "Date": "Fri, 29 Dec 2017 12:57:29 GMT",
+        "Content-Type": "text/xml; charset=\"UTF-8\"",
+        "Transfer-Encoding": "chunked",
+        "Vary": "Accept-Encoding",
+        "X-Powered-By": "PHP/5.5.38",
+        "Set-Cookie": "SessionID=c6e1925f55509567fbeeccd22163f2ca63b4361d; expires=Fri, 29-Dec-2017 13:57:29 GMT; Max-Age=3600; path=/; domain=.boardgamegeek.com",
+        "Expires": "Thu, 19 Nov 1981 08:52:00 GMT",
+        "Cache-Control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+        "Pragma": "no-cache",
+        "Access-Control-Allow-Origin": "*",
+        "X-FastCGI-Cache": "MISS"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
