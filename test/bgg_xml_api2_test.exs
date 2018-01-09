@@ -22,7 +22,8 @@ defmodule BggXmlApi2Test do
                  max_players: 5,
                  playing_time: 115,
                  min_play_time: 90,
-                 max_play_time: 115
+                 max_play_time: 115,
+                 average_rating: 8.29583
                }}
     end
   end

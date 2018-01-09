@@ -21,7 +21,8 @@ defmodule BggXmlApi2.Item do
     :max_players,
     :playing_time,
     :min_play_time,
-    :max_play_time
+    :max_play_time,
+    :average_rating
   ]
 
   @doc """
@@ -54,7 +55,7 @@ defmodule BggXmlApi2.Item do
   @spec info(String.t()) :: {:ok, %BggXmlApi2.Item{}} | {:error, :no_results}
   def info(id) do
     item =
-      "/thing?id=#{id}"
+      "/thing?stats=1&id=#{id}"
       |> BggApi.get!()
       |> Map.get(:body)
       |> retrieve_item_details(~x"//item")
@@ -137,7 +138,11 @@ defmodule BggXmlApi2.Item do
       max_play_time:
         item
         |> xpath(~x"./maxplaytime/@value")
-        |> if_charlist_convert_to_integer()
+        |> if_charlist_convert_to_integer(),
+      average_rating:
+        item
+        |> xpath(~x"./statistics/ratings/average/@value")
+        |> if_charlist_convert_to_float()
     }
   end
 
@@ -164,6 +169,14 @@ defmodule BggXmlApi2.Item do
   defp if_charlist_convert_to_integer(possible_charlist) do
     if is_list(possible_charlist) do
       List.to_integer(possible_charlist)
+    else
+      possible_charlist
+    end
+  end
+
+  defp if_charlist_convert_to_float(possible_charlist) do
+    if is_list(possible_charlist) do
+      List.to_float(possible_charlist)
     else
       possible_charlist
     end

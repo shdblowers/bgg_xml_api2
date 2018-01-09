@@ -65,7 +65,8 @@ defmodule BggXmlApi2.ItemTest do
                  max_players: 2,
                  playing_time: 30,
                  min_play_time: 30,
-                 max_play_time: 30
+                 max_play_time: 30,
+                 average_rating: 7.53774
                }}
     end
   end
