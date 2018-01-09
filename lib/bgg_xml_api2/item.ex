@@ -14,6 +14,7 @@ defmodule BggXmlApi2.Item do
     :name,
     :type,
     :year_published,
+    :image,
     :thumbnail,
     :description,
     :min_players,
@@ -104,6 +105,10 @@ defmodule BggXmlApi2.Item do
       year_published:
         item
         |> xpath(~x"./yearpublished/@value")
+        |> if_charlist_convert_to_string(),
+      image:
+        item
+        |> xpath(~x"./image/text()")
         |> if_charlist_convert_to_string(),
       thumbnail:
         item

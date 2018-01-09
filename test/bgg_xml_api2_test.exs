@@ -15,6 +15,7 @@ defmodule BggXmlApi2Test do
                  type: "boardgame",
                  year_published: "2016",
                  description: scythe_description(),
+                 image: "https://cf.geekdo-images.com/images/pic3163924.jpg",
                  thumbnail:
                    "https://cf.geekdo-images.com/images/pic3163924_t.jpg",
                  min_players: 1,

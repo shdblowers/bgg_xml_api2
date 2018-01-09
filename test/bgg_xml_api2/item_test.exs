@@ -58,6 +58,7 @@ defmodule BggXmlApi2.ItemTest do
                  type: "boardgame",
                  year_published: "2009",
                  description: jaipur_description(),
+                 image: "https://cf.geekdo-images.com/images/pic725500.jpg",
                  thumbnail:
                    "https://cf.geekdo-images.com/images/pic725500_t.jpg",
                  min_players: 2,
