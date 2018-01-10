@@ -42,7 +42,8 @@ iex(1)> BggXmlApi2.board_game_info("Terraforming Mars")
    max_play_time: 120,
    thumbnail: "https://cf.geekdo-images.com/images/pic3536616_t.jpg",
    image: "https://cf.geekdo-images.com/images/pic3536616.jpg",
-   average_rating: 8.38334
+   average_rating: 8.38334,
+   ...
   }
 }
 ```

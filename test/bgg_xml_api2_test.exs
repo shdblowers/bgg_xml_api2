@@ -23,7 +23,61 @@ defmodule BggXmlApi2Test do
                  playing_time: 115,
                  min_play_time: 90,
                  max_play_time: 115,
-                 average_rating: 8.29583
+                 average_rating: 8.29583,
+                 categories: [
+                   "Civilization",
+                   "Economic",
+                   "Fighting",
+                   "Miniatures",
+                   "Science Fiction",
+                   "Territory Building"
+                  ],
+                  mechanics: [
+                    "Area Control / Area Influence",
+                    "Grid Movement",
+                    "Simultaneous Action Selection",
+                    "Variable Player Powers"
+                  ],
+                  families: [
+                    "Alternate History",
+                    "Components: Miniatures",
+                    "Crowdfunding: Kickstarter",
+                    "Scythe",
+                    "Solitaire Games",
+                    "Tableau Building"
+                  ],
+                  expansions: [
+                    "Scythe: Invaders from Afar",
+                    "Scythe: Promo Encounter Card #37",
+                    "Scythe: Promo Encounter Card #38",
+                    "Scythe: Promo Encounter Card #39",
+                    "Scythe: Promo Encounter Card #40",
+                    "Scythe: Promo Encounter Card #41",
+                    "Scythe: Promo Encounter Card #42",
+                    "Scythe: Promo Pack #1",
+                    "Scythe: Promo Pack #2",
+                    "Scythe: Promo Pack #3",
+                    "Scythe: Promo Pack #4",
+                    "Scythe: The Rise of Fenris",
+                    "Scythe: The Wind Gambit"
+                  ],
+                  designers: ["Jamey Stegmaier"],
+                  artists: ["Jakub Rozalski"],
+                  publishers: [
+                    "Stonemaier Games",
+                    "Albi",
+                    "Arclight",
+                    "Crowd Games",
+                    "Delta Vision Publishing",
+                    "Feuerland Spiele",
+                    "Fire on Board Jogos",
+                    "Ghenos Games",
+                    "Maldito Games",
+                    "Matagot",
+                    "Morning",
+                    "PHALANX",
+                    "Playfun Games"
+                 ]
                }}
     end
   end

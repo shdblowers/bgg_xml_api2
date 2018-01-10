@@ -66,7 +66,21 @@ defmodule BggXmlApi2.ItemTest do
                  playing_time: 30,
                  min_play_time: 30,
                  max_play_time: 30,
-                 average_rating: 7.53774
+                 average_rating: 7.53774,
+                 categories: ["Animals", "Card Game"],
+                 mechanics: ["Card Drafting", "Hand Management", "Set Collection"],
+                 families: ["Animals: Camels", "Asian Theme", "Country: India"],
+                 designers: ["Sébastien Pauchon"],
+                 artists: ["Alexandre Roche"],
+                 publishers: [
+                   "GameWorks SàRL",
+                   "Asmodee",
+                   "cutia.ro",
+                   "Esdevium",
+                   "Kaissa Chess & Games",
+                   "Rebel",
+                   "Siam Board Games"
+                  ]
                }}
     end
   end

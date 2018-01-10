@@ -22,7 +22,14 @@ defmodule BggXmlApi2.Item do
     :playing_time,
     :min_play_time,
     :max_play_time,
-    :average_rating
+    :average_rating,
+    categories: [],
+    mechanics: [],
+    families: [],
+    expansions: [],
+    designers: [],
+    artists: [],
+    publishers: []
   ]
 
   @doc """
@@ -35,7 +42,7 @@ defmodule BggXmlApi2.Item do
   * `:exact` - if set to true an exact match search on the name will be done
 
   * `:type` - a list of strings where each one is a type of item to search for,
-    the types of items available are rpgitem, videogame, boardgame, 
+    the types of items available are rpgitem, videogame, boardgame,
     boardgameaccessory or boardgameexpansion
 
   """
@@ -142,7 +149,35 @@ defmodule BggXmlApi2.Item do
       average_rating:
         item
         |> xpath(~x"./statistics/ratings/average/@value")
-        |> if_charlist_convert_to_float()
+        |> if_charlist_convert_to_float(),
+      categories:
+        item
+        |> xpath(~x"./link[@type='boardgamecategory']/@value"l)
+        |> Enum.map(&if_charlist_convert_to_string/1),
+      mechanics:
+        item
+        |> xpath(~x"./link[@type='boardgamemechanic']/@value"l)
+        |> Enum.map(&if_charlist_convert_to_string/1),
+      families:
+        item
+        |> xpath(~x"./link[@type='boardgamefamily']/@value"l)
+        |> Enum.map(&if_charlist_convert_to_string/1),
+      expansions:
+        item
+        |> xpath(~x"./link[@type='boardgameexpansion']/@value"l)
+        |> Enum.map(&if_charlist_convert_to_string/1),
+      designers:
+        item
+        |> xpath(~x"./link[@type='boardgamedesigner']/@value"l)
+        |> Enum.map(&if_charlist_convert_to_string/1),
+      artists:
+        item
+        |> xpath(~x"./link[@type='boardgameartist']/@value"l)
+        |> Enum.map(&if_charlist_convert_to_string/1),
+      publishers:
+        item
+        |> xpath(~x"./link[@type='boardgamepublisher']/@value"l)
+        |> Enum.map(&if_charlist_convert_to_string/1)
     }
   end
 
