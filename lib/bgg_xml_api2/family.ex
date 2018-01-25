@@ -58,5 +58,4 @@ defmodule BggXmlApi2.Family do
       possible_charlist
     end
   end
-
 end

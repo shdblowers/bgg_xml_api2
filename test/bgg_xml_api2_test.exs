@@ -9,28 +9,29 @@ defmodule BggXmlApi2Test do
   test "board game info convenience function" do
     use_cassette "search_and_info_on_scythe" do
       assert BggXmlApi2.board_game_info("Scythe") ==
-               {:ok, %BggXmlApi2.Item{
-                 id: "169786",
-                 name: "Scythe",
-                 type: "boardgame",
-                 year_published: "2016",
-                 description: scythe_description(),
-                 image: "https://cf.geekdo-images.com/images/pic3163924.jpg",
-                 thumbnail:
-                   "https://cf.geekdo-images.com/images/pic3163924_t.jpg",
-                 min_players: 1,
-                 max_players: 5,
-                 playing_time: 115,
-                 min_play_time: 90,
-                 max_play_time: 115,
-                 average_rating: 8.29583,
-                 categories: [
-                   "Civilization",
-                   "Economic",
-                   "Fighting",
-                   "Miniatures",
-                   "Science Fiction",
-                   "Territory Building"
+               {:ok,
+                %BggXmlApi2.Item{
+                  id: "169786",
+                  name: "Scythe",
+                  type: "boardgame",
+                  year_published: "2016",
+                  description: scythe_description(),
+                  image: "https://cf.geekdo-images.com/images/pic3163924.jpg",
+                  thumbnail:
+                    "https://cf.geekdo-images.com/images/pic3163924_t.jpg",
+                  min_players: 1,
+                  max_players: 5,
+                  playing_time: 115,
+                  min_play_time: 90,
+                  max_play_time: 115,
+                  average_rating: 8.29583,
+                  categories: [
+                    "Civilization",
+                    "Economic",
+                    "Fighting",
+                    "Miniatures",
+                    "Science Fiction",
+                    "Territory Building"
                   ],
                   mechanics: [
                     "Area Control / Area Influence",
@@ -77,8 +78,8 @@ defmodule BggXmlApi2Test do
                     "Morning",
                     "PHALANX",
                     "Playfun Games"
-                 ]
-               }}
+                  ]
+                }}
     end
   end
 

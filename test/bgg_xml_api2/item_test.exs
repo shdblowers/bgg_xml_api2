@@ -52,36 +52,41 @@ defmodule BggXmlApi2.ItemTest do
   test "get game info" do
     use_cassette "info_on_jaipur" do
       assert Item.info("54043") ==
-               {:ok, %BggXmlApi2.Item{
-                 id: "54043",
-                 name: "Jaipur",
-                 type: "boardgame",
-                 year_published: "2009",
-                 description: jaipur_description(),
-                 image: "https://cf.geekdo-images.com/images/pic725500.jpg",
-                 thumbnail:
-                   "https://cf.geekdo-images.com/images/pic725500_t.jpg",
-                 min_players: 2,
-                 max_players: 2,
-                 playing_time: 30,
-                 min_play_time: 30,
-                 max_play_time: 30,
-                 average_rating: 7.53774,
-                 categories: ["Animals", "Card Game"],
-                 mechanics: ["Card Drafting", "Hand Management", "Set Collection"],
-                 families: ["Animals: Camels", "Asian Theme", "Country: India"],
-                 designers: ["Sébastien Pauchon"],
-                 artists: ["Alexandre Roche"],
-                 publishers: [
-                   "GameWorks SàRL",
-                   "Asmodee",
-                   "cutia.ro",
-                   "Esdevium",
-                   "Kaissa Chess & Games",
-                   "Rebel",
-                   "Siam Board Games"
+               {:ok,
+                %BggXmlApi2.Item{
+                  id: "54043",
+                  name: "Jaipur",
+                  type: "boardgame",
+                  year_published: "2009",
+                  description: jaipur_description(),
+                  image: "https://cf.geekdo-images.com/images/pic725500.jpg",
+                  thumbnail:
+                    "https://cf.geekdo-images.com/images/pic725500_t.jpg",
+                  min_players: 2,
+                  max_players: 2,
+                  playing_time: 30,
+                  min_play_time: 30,
+                  max_play_time: 30,
+                  average_rating: 7.53774,
+                  categories: ["Animals", "Card Game"],
+                  mechanics: [
+                    "Card Drafting",
+                    "Hand Management",
+                    "Set Collection"
+                  ],
+                  families: ["Animals: Camels", "Asian Theme", "Country: India"],
+                  designers: ["Sébastien Pauchon"],
+                  artists: ["Alexandre Roche"],
+                  publishers: [
+                    "GameWorks SàRL",
+                    "Asmodee",
+                    "cutia.ro",
+                    "Esdevium",
+                    "Kaissa Chess & Games",
+                    "Rebel",
+                    "Siam Board Games"
                   ]
-               }}
+                }}
     end
   end
 

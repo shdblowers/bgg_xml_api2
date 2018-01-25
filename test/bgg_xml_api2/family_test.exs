@@ -11,11 +11,12 @@ defmodule BggXmlApi2.FamilyTest do
   test "family info" do
     use_cassette "camels_info" do
       assert Family.info("6480") ==
-               {:ok, %Family{
-                 id: "6480",
-                 name: "Animals: Camels",
-                 type: "boardgamefamily"
-               }}
+               {:ok,
+                %Family{
+                  id: "6480",
+                  name: "Animals: Camels",
+                  type: "boardgamefamily"
+                }}
     end
   end
 end
