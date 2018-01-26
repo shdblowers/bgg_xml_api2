@@ -23,6 +23,7 @@ defmodule BggXmlApi2.Item do
     :min_play_time,
     :max_play_time,
     :average_rating,
+    :average_weight,
     categories: [],
     mechanics: [],
     families: [],
@@ -149,6 +150,10 @@ defmodule BggXmlApi2.Item do
       average_rating:
         item
         |> xpath(~x"./statistics/ratings/average/@value")
+        |> if_charlist_convert_to_float(),
+      average_weight:
+        item
+        |> xpath(~x"./statistics/ratings/averageweight/@value")
         |> if_charlist_convert_to_float(),
       categories:
         item

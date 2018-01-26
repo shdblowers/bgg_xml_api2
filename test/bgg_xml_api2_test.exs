@@ -25,6 +25,7 @@ defmodule BggXmlApi2Test do
                   min_play_time: 90,
                   max_play_time: 115,
                   average_rating: 8.29583,
+                  average_weight: 3.3514,
                   categories: [
                     "Civilization",
                     "Economic",

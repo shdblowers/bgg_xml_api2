@@ -68,6 +68,7 @@ defmodule BggXmlApi2.ItemTest do
                   min_play_time: 30,
                   max_play_time: 30,
                   average_rating: 7.53774,
+                  average_weight: 1.5312,
                   categories: ["Animals", "Card Game"],
                   mechanics: [
                     "Card Drafting",
