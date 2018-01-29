@@ -1,5 +1,4 @@
 defmodule BggXmlApi2.Collection do
-
   import SweetXml
 
   alias BggXmlApi2.Api, as: BggApi

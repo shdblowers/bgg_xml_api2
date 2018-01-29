@@ -216,7 +216,8 @@ defmodule BggXmlApi2.Item do
 
   defp if_charlist_convert_to_float(possible_charlist) do
     if is_list(possible_charlist) do
-      List.to_float(possible_charlist)
+      {float, _} = possible_charlist |> List.to_string() |> Float.parse()
+      float
     else
       possible_charlist
     end
