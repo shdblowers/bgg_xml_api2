@@ -5,8 +5,23 @@ defmodule BggXmlApi2.Collection do
 
   def game_names(username) do
     "/collection?username=#{username}&own=1&excludesubtype=boardgameexpansion&brief=1"
-    |> BggApi.get!()
+    |> get_collection()
     |> Map.get(:body)
     |> xpath(~x"//item/name/text()"l)
   end
+
+  defp get_collection(url) do
+    get_collection(url, BggApi.get!(url))
+  end
+
+  defp get_collection(url, %HTTPoison.Response{status_code: 202}) do
+    Process.sleep(500)
+    get_collection(url, BggApi.get!(url))
+  end
+
+  defp get_collection(_url, %HTTPoison.Response{status_code: 200} = response) do
+    response
+  end
+
+  defp get_collection(_url, response), do: response
 end
