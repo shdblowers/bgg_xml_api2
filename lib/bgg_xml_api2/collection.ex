@@ -4,10 +4,14 @@ defmodule BggXmlApi2.Collection do
   alias BggXmlApi2.Api, as: BggApi
 
   def game_names(username) do
-    "/collection?username=#{username}&own=1&excludesubtype=boardgameexpansion&brief=1"
-    |> get_collection()
-    |> Map.get(:body)
-    |> xpath(~x"//item/name/text()"l)
+    result =
+      "/collection?username=#{username}&own=1&excludesubtype=boardgameexpansion&brief=1"
+      |> get_collection()
+      |> Map.get(:body)
+      |> xpath(~x"//item/name/text()"l)
+      |> Enum.map(&List.to_string/1)
+
+    {:ok, result}
   end
 
   defp get_collection(url) do
