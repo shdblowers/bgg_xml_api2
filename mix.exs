@@ -24,7 +24,8 @@ defmodule BggXmlApi2.Mixfile do
       {:html_entities, "~> 0.4.0"},
       {:exvcr, "~> 0.9.1", only: :test},
       {:ex_doc, "~> 0.18.1", only: :dev, runtime: false},
-      {:dialyxir, "~> 0.5.1", only: :dev, runtime: false}
+      {:dialyxir, "~> 0.5.1", only: :dev, runtime: false},
+      {:credo, "~> 0.9.0", only: [:dev, :test], runtime: false}
     ]
   end
 end

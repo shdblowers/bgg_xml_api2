@@ -1,4 +1,5 @@
 defmodule BggXmlApi2.Api do
+  @moduledoc nil
   use HTTPoison.Base
 
   @endpoint "https://www.boardgamegeek.com/xmlapi2"

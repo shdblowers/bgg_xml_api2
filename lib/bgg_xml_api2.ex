@@ -1,4 +1,8 @@
 defmodule BggXmlApi2 do
+  @moduledoc """
+  High level convenience functions.
+  """
+
   alias BggXmlApi2.Item
 
   @doc """
