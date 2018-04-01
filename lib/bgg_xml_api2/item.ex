@@ -47,14 +47,26 @@ defmodule BggXmlApi2.Item do
     boardgameaccessory or boardgameexpansion
 
   """
-  @spec search(String.t(), keyword) :: [%__MODULE__{}]
+  @spec search(String.t(), keyword) :: {:ok, [%__MODULE__{}]} | :error
   def search(name, opts \\ []) do
-    name
-    |> build_search_query_string(opts)
-    |> BggApi.get!()
-    |> Map.get(:body)
-    |> retrieve_multi_item_details(~x"//item"l)
-    |> Enum.map(&process_item/1)
+    result =
+      name
+      |> build_search_query_string(opts)
+      |> BggApi.get()
+
+    case result do
+      {:ok, response} ->
+        return =
+          response
+          |> Map.get(:body)
+          |> retrieve_multi_item_details(~x"//item"l)
+          |> Enum.map(&process_item/1)
+
+        {:ok, return}
+
+      _ ->
+        :error
+    end
   end
 
   @doc """

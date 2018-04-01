@@ -14,14 +14,17 @@ defmodule BggXmlApi2 do
     search_result = Item.search(name, exact: true, type: ["boardgame"])
 
     case search_result do
-      [] ->
+      {:ok, []} ->
         {:error, :no_results}
 
-      items ->
+      {:ok, items} ->
         items
         |> Enum.max_by(fn i -> String.to_integer(i.year_published) end)
         |> Map.get(:id)
         |> Item.info()
+
+      :error ->
+        {:error, :no_results}
     end
   end
 end
