@@ -74,15 +74,13 @@ defmodule BggXmlApi2.Item do
   """
   @spec info(String.t()) :: {:ok, %BggXmlApi2.Item{}} | {:error, :no_results}
   def info(id) do
-    item =
-      "/thing?stats=1&id=#{id}"
-      |> BggApi.get!()
-      |> Map.get(:body)
-      |> retrieve_item_details(~x"//item")
-
-    case item do
-      {:ok, item} -> {:ok, process_item(item)}
-      {:error, :no_results} -> {:error, :no_results}
+    with {:ok, response} <- BggApi.get("/thing?stats=1&id=#{id}"),
+         body <- Map.get(response, :body),
+         {:ok, item} <- retrieve_item_details(body, ~x"//item") do
+      {:ok, process_item(item)}
+    else
+      {:error, _} ->
+        {:error, :no_results}
     end
   end
 
