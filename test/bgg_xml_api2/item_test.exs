@@ -10,7 +10,7 @@ defmodule BggXmlApi2.ItemTest do
 
   test "basic search" do
     use_cassette "basic_search_lords_of_waterdeep" do
-      item_search_results = Item.search("Lords of Waterdeep")
+      {:ok, item_search_results} = Item.search("Lords of Waterdeep")
 
       assert Enum.member?(item_search_results, %BggXmlApi2.Item{
                id: "110327",
@@ -23,27 +23,28 @@ defmodule BggXmlApi2.ItemTest do
 
   test "when search finds nothing it will return empty list" do
     use_cassette "no_results_search" do
-      assert Item.search("F3bnu5yca2mgFZ1J") == []
+      assert Item.search("F3bnu5yca2mgFZ1J") == {:ok, []}
     end
   end
 
   test "exact search" do
     use_cassette "exact_search_zombicide" do
       assert Item.search("Zombicide", exact: true) ==
-               [
-                 %BggXmlApi2.Item{
-                   id: "113924",
-                   name: "Zombicide",
-                   type: "boardgame",
-                   year_published: "2012"
-                 }
-               ]
+               {:ok,
+                [
+                  %BggXmlApi2.Item{
+                    id: "113924",
+                    name: "Zombicide",
+                    type: "boardgame",
+                    year_published: "2012"
+                  }
+                ]}
     end
   end
 
   test "giving the type in the search will filter by that type" do
     use_cassette "type_search_eldritch_horror" do
-      result = Item.search("Eldritch Horror", type: ["boardgame"])
+      {:ok, result} = Item.search("Eldritch Horror", type: ["boardgame"])
 
       assert Enum.all?(result, &(&1.type == "boardgame"))
     end
