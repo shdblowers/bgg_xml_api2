@@ -69,6 +69,27 @@ defmodule BggXmlApi2.Item do
     end
   end
 
+  @spec hot_items(keyword) :: {:ok, [%__MODULE__{}]} | :error
+  def hot_items(opts \\ []) do
+    type = Keyword.get(opts, :type, "boardgame")
+    url = "/hot?type=#{type}"
+
+    case BggApi.get(url) do
+      {:ok, response} ->
+        return =
+          response
+          |> Map.get(:body)
+          |> retrieve_multi_item_details(~x"//item"l)
+          |> Enum.map(fn item -> Map.put(item, :type, type) end)
+          |> Enum.map(&process_item/1)
+
+        {:ok, return}
+
+      _ ->
+        :error
+    end
+  end
+
   @doc """
   Retrieve information on an Item based on `id`.
   """
@@ -82,16 +103,6 @@ defmodule BggXmlApi2.Item do
       {:error, _} ->
         {:error, :no_results}
     end
-  end
-
-  defp build_search_query_string(name, opts) do
-    exact_search = Keyword.get(opts, :exact, false)
-    exact = if exact_search, do: "&exact=1", else: ""
-
-    type_search = Keyword.get(opts, :type, false)
-    type = if type_search, do: "&type=#{Enum.join(type_search, ",")}", else: ""
-
-    "/search?query=#{URI.encode(name)}#{exact}#{type}"
   end
 
   defp retrieve_item_details(xml, path_to_item) do
@@ -115,7 +126,7 @@ defmodule BggXmlApi2.Item do
         |> if_charlist_convert_to_string(),
       name:
         item
-        |> xpath(~x"./name[@type='primary']/@value")
+        |> multi_xpaths([~x"./name[@type='primary']/@value", ~x"./name/@value"])
         |> if_charlist_convert_to_string(),
       type:
         item
@@ -131,7 +142,7 @@ defmodule BggXmlApi2.Item do
         |> if_charlist_convert_to_string(),
       thumbnail:
         item
-        |> xpath(~x"./thumbnail/text()")
+        |> multi_xpaths([~x"./thumbnail/text()", ~x"./thumbnail/@value"])
         |> if_charlist_convert_to_string(),
       description:
         item
@@ -196,6 +207,12 @@ defmodule BggXmlApi2.Item do
     }
   end
 
+  defp multi_xpaths(item, xpaths) do
+    Enum.find_value(xpaths, fn x ->
+      xpath(item, x)
+    end)
+  end
+
   defp process_item(%{description: ""} = item) do
     item = %{item | description: nil}
 
@@ -231,5 +248,15 @@ defmodule BggXmlApi2.Item do
     else
       possible_charlist
     end
+  end
+
+  defp build_search_query_string(name, opts) do
+    exact_search = Keyword.get(opts, :exact, false)
+    exact = if exact_search, do: "&exact=1", else: ""
+
+    type_search = Keyword.get(opts, :type, false)
+    type = if type_search, do: "&type=#{Enum.join(type_search, ",")}", else: ""
+
+    "/search?query=#{URI.encode(name)}#{exact}#{type}"
   end
 end

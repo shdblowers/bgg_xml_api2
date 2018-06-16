@@ -8,93 +8,124 @@ defmodule BggXmlApi2.ItemTest do
     HTTPoison.start()
   end
 
-  test "basic search" do
-    use_cassette "basic_search_lords_of_waterdeep" do
-      {:ok, item_search_results} = Item.search("Lords of Waterdeep")
+  describe "search" do
+    test "basic search" do
+      use_cassette "basic_search_lords_of_waterdeep" do
+        {:ok, item_search_results} = Item.search("Lords of Waterdeep")
 
-      assert Enum.member?(item_search_results, %BggXmlApi2.Item{
-               id: "110327",
-               name: "Lords of Waterdeep",
-               type: "boardgame",
-               year_published: "2012"
-             })
+        assert Enum.member?(item_search_results, %BggXmlApi2.Item{
+                 id: "110327",
+                 name: "Lords of Waterdeep",
+                 type: "boardgame",
+                 year_published: "2012"
+               })
+      end
+    end
+
+    test "when search finds nothing it will return empty list" do
+      use_cassette "no_results_search" do
+        assert Item.search("F3bnu5yca2mgFZ1J") == {:ok, []}
+      end
+    end
+
+    test "exact search" do
+      use_cassette "exact_search_zombicide" do
+        assert Item.search("Zombicide", exact: true) ==
+                 {:ok,
+                  [
+                    %BggXmlApi2.Item{
+                      id: "113924",
+                      name: "Zombicide",
+                      type: "boardgame",
+                      year_published: "2012"
+                    }
+                  ]}
+      end
+    end
+
+    test "giving the type in the search will filter by that type" do
+      use_cassette "type_search_eldritch_horror" do
+        {:ok, result} = Item.search("Eldritch Horror", type: ["boardgame"])
+
+        assert Enum.all?(result, &(&1.type == "boardgame"))
+      end
     end
   end
 
-  test "when search finds nothing it will return empty list" do
-    use_cassette "no_results_search" do
-      assert Item.search("F3bnu5yca2mgFZ1J") == {:ok, []}
-    end
-  end
-
-  test "exact search" do
-    use_cassette "exact_search_zombicide" do
-      assert Item.search("Zombicide", exact: true) ==
-               {:ok,
-                [
+  describe "info" do
+    test "get game info" do
+      use_cassette "info_on_jaipur" do
+        assert Item.info("54043") ==
+                 {:ok,
                   %BggXmlApi2.Item{
-                    id: "113924",
-                    name: "Zombicide",
+                    id: "54043",
+                    name: "Jaipur",
                     type: "boardgame",
-                    year_published: "2012"
-                  }
-                ]}
+                    year_published: "2009",
+                    description: jaipur_description(),
+                    image: "https://cf.geekdo-images.com/images/pic725500.jpg",
+                    thumbnail:
+                      "https://cf.geekdo-images.com/images/pic725500_t.jpg",
+                    min_players: 2,
+                    max_players: 2,
+                    playing_time: 30,
+                    min_play_time: 30,
+                    max_play_time: 30,
+                    average_rating: 7.53774,
+                    average_weight: 1.5312,
+                    categories: ["Animals", "Card Game"],
+                    mechanics: [
+                      "Card Drafting",
+                      "Hand Management",
+                      "Set Collection"
+                    ],
+                    families: [
+                      "Animals: Camels",
+                      "Asian Theme",
+                      "Country: India"
+                    ],
+                    designers: ["Sébastien Pauchon"],
+                    artists: ["Alexandre Roche"],
+                    publishers: [
+                      "GameWorks SàRL",
+                      "Asmodee",
+                      "cutia.ro",
+                      "Esdevium",
+                      "Kaissa Chess & Games",
+                      "Rebel",
+                      "Siam Board Games"
+                    ]
+                  }}
+      end
+    end
+
+    test "get info on a non-existant ID will return :error with a message" do
+      use_cassette "info_on_nothing" do
+        assert Item.info("XxX") == {:error, :no_results}
+      end
     end
   end
 
-  test "giving the type in the search will filter by that type" do
-    use_cassette "type_search_eldritch_horror" do
-      {:ok, result} = Item.search("Eldritch Horror", type: ["boardgame"])
+  describe "hot items" do
+    test "get hot boardgame items" do
+      use_cassette "hot_items" do
+        {:ok, hot_items} = Item.hot_items(type: "boardgame")
 
-      assert Enum.all?(result, &(&1.type == "boardgame"))
+        assert hd(hot_items) == %BggXmlApi2.Item{
+                 id: "245931",
+                 name: "Nētā-Tanka",
+                 type: "boardgame",
+                 year_published: "2018",
+                 thumbnail:
+                   "https://cf.geekdo-images.com/thumb/img/KCuoGe7cTIWEp4G4yCmpTjZBn6s=/fit-in/200x150/pic4061828.jpg"
+               }
+      end
     end
-  end
 
-  test "get game info" do
-    use_cassette "info_on_jaipur" do
-      assert Item.info("54043") ==
-               {:ok,
-                %BggXmlApi2.Item{
-                  id: "54043",
-                  name: "Jaipur",
-                  type: "boardgame",
-                  year_published: "2009",
-                  description: jaipur_description(),
-                  image: "https://cf.geekdo-images.com/images/pic725500.jpg",
-                  thumbnail:
-                    "https://cf.geekdo-images.com/images/pic725500_t.jpg",
-                  min_players: 2,
-                  max_players: 2,
-                  playing_time: 30,
-                  min_play_time: 30,
-                  max_play_time: 30,
-                  average_rating: 7.53774,
-                  average_weight: 1.5312,
-                  categories: ["Animals", "Card Game"],
-                  mechanics: [
-                    "Card Drafting",
-                    "Hand Management",
-                    "Set Collection"
-                  ],
-                  families: ["Animals: Camels", "Asian Theme", "Country: India"],
-                  designers: ["Sébastien Pauchon"],
-                  artists: ["Alexandre Roche"],
-                  publishers: [
-                    "GameWorks SàRL",
-                    "Asmodee",
-                    "cutia.ro",
-                    "Esdevium",
-                    "Kaissa Chess & Games",
-                    "Rebel",
-                    "Siam Board Games"
-                  ]
-                }}
-    end
-  end
-
-  test "get info on a non-existant ID will return :error with a message" do
-    use_cassette "info_on_nothing" do
-      assert Item.info("XxX") == {:error, :no_results}
+    test "default type is boardgame" do
+      use_cassette "hot_items" do
+        assert Item.hot_items() == Item.hot_items(type: "boardgame")
+      end
     end
   end
 
