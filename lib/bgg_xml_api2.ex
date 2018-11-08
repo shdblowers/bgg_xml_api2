@@ -36,13 +36,18 @@ defmodule BggXmlApi2 do
         {:error, :no_results}
 
       {:ok, items} ->
-        id =
-          items
-          |> Enum.filter(fn i -> not is_nil(i.year_published) end)
-          |> Enum.max_by(fn i -> String.to_integer(i.year_published) end)
-          |> Map.get(:id)
+        case Enum.filter(items, fn i -> not is_nil(i.year_published) end) do
+          [] ->
+            {:error, :no_results}
 
-        {:ok, id}
+          items_with_year ->
+            id =
+              items_with_year
+              |> Enum.max_by(fn i -> String.to_integer(i.year_published) end)
+              |> Map.get(:id)
+
+            {:ok, id}
+        end
 
       :error ->
         {:error, :no_results}
