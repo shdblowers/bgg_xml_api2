@@ -24,6 +24,14 @@ defmodule BggXmlApi2Test do
                   playing_time: 115,
                   min_play_time: 90,
                   max_play_time: 115,
+                  suggested_num_players: %{
+                    "1" => %{best: 21, not_recommended: 72, recommended: 162},
+                    "2" => %{best: 19, not_recommended: 87, recommended: 212},
+                    "3" => %{best: 85, not_recommended: 27, recommended: 216},
+                    "4" => %{best: 232, not_recommended: 5, recommended: 105},
+                    "5" => %{best: 103, not_recommended: 40, recommended: 160},
+                    "5+" => %{best: 8, not_recommended: 142, recommended: 50}
+                  },
                   average_rating: 8.29583,
                   average_weight: 3.3514,
                   categories: [

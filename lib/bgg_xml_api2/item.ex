@@ -30,7 +30,8 @@ defmodule BggXmlApi2.Item do
     expansions: [],
     designers: [],
     artists: [],
-    publishers: []
+    publishers: [],
+    suggested_num_players: %{}
   ]
 
   @doc """
@@ -156,6 +157,14 @@ defmodule BggXmlApi2.Item do
         item
         |> xpath(~x"./maxplayers/@value")
         |> if_charlist_convert_to_integer(),
+      suggested_num_players:
+        item
+        |> xpath(
+          ~x"./poll[@name='suggested_numplayers']/results"l,
+          num_players: ~x"@numplayers"s,
+          results: [~x"./result"l, value: ~x"@value"s, votes: ~x"@numvotes"i]
+        )
+        |> simplify_suggested_num_players_structure(),
       playing_time:
         item
         |> xpath(~x"./playingtime/@value")
@@ -258,5 +267,24 @@ defmodule BggXmlApi2.Item do
     type = if type_search, do: "&type=#{Enum.join(type_search, ",")}", else: ""
 
     "/search?query=#{URI.encode(name)}#{exact}#{type}"
+  end
+
+  defp simplify_suggested_num_players_structure(player_counts) do
+    player_counts
+    |> Enum.map(fn %{num_players: num_players, results: results} ->
+      simplified_results = simplify_results(results)
+      {num_players, simplified_results}
+    end)
+    |> Enum.into(%{})
+  end
+
+  defp simplify_results(results) do
+    results
+    |> Enum.map(fn
+      %{value: "Best", votes: votes} -> {:best, votes}
+      %{value: "Recommended", votes: votes} -> {:recommended, votes}
+      %{value: "Not Recommended", votes: votes} -> {:not_recommended, votes}
+    end)
+    |> Enum.into(%{})
   end
 end

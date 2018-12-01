@@ -68,6 +68,11 @@ defmodule BggXmlApi2.ItemTest do
                       "https://cf.geekdo-images.com/images/pic725500_t.jpg",
                     min_players: 2,
                     max_players: 2,
+                    suggested_num_players: %{
+                      "1" => %{best: 0, not_recommended: 148, recommended: 0},
+                      "2" => %{best: 186, not_recommended: 1, recommended: 9},
+                      "2+" => %{best: 5, not_recommended: 127, recommended: 11}
+                    },
                     playing_time: 30,
                     min_play_time: 30,
                     max_play_time: 30,
