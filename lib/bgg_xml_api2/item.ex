@@ -127,7 +127,9 @@ defmodule BggXmlApi2.Item do
         |> multi_xpaths([~x"./name[@type='primary']/@value", ~x"./name/@value"])
         |> if_charlist_convert_to_string(),
       type: xpath(item, ~x"./@type"s),
-      year_published: xpath(item, ~x"./yearpublished/@value"s),
+      year_published:
+        xpath(item, ~x"./yearpublished/@value")
+        |> if_charlist_convert_to_string(),
       image:
         item
         |> xpath(~x"./image/text()")
