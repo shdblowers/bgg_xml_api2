@@ -121,22 +121,13 @@ defmodule BggXmlApi2.Item do
 
   defp rid(item) do
     %{
-      id:
-        item
-        |> xpath(~x"./@id")
-        |> if_charlist_convert_to_string(),
+      id: xpath(item, ~x"./@id"s),
       name:
         item
         |> multi_xpaths([~x"./name[@type='primary']/@value", ~x"./name/@value"])
         |> if_charlist_convert_to_string(),
-      type:
-        item
-        |> xpath(~x"./@type")
-        |> if_charlist_convert_to_string(),
-      year_published:
-        item
-        |> xpath(~x"./yearpublished/@value")
-        |> if_charlist_convert_to_string(),
+      type: xpath(item, ~x"./@type"s),
+      year_published: xpath(item, ~x"./yearpublished/@value"s),
       image:
         item
         |> xpath(~x"./image/text()")
@@ -147,16 +138,14 @@ defmodule BggXmlApi2.Item do
         |> if_charlist_convert_to_string(),
       description:
         item
-        |> xpath(~x"./description/text()"l)
+        |> xpath(~x"./description/text()"Sl)
         |> Enum.join(),
       min_players:
         item
-        |> xpath(~x"./minplayers/@value")
-        |> if_charlist_convert_to_integer(),
+        |> xpath(~x"./minplayers/@value"Io),
       max_players:
         item
-        |> xpath(~x"./maxplayers/@value")
-        |> if_charlist_convert_to_integer(),
+        |> xpath(~x"./maxplayers/@value"Io),
       suggested_num_players:
         item
         |> xpath(
@@ -165,54 +154,19 @@ defmodule BggXmlApi2.Item do
           results: [~x"./result"l, value: ~x"@value"s, votes: ~x"@numvotes"i]
         )
         |> simplify_suggested_num_players_structure(),
-      playing_time:
-        item
-        |> xpath(~x"./playingtime/@value")
-        |> if_charlist_convert_to_integer(),
-      min_play_time:
-        item
-        |> xpath(~x"./minplaytime/@value")
-        |> if_charlist_convert_to_integer(),
-      max_play_time:
-        item
-        |> xpath(~x"./maxplaytime/@value")
-        |> if_charlist_convert_to_integer(),
-      average_rating:
-        item
-        |> xpath(~x"./statistics/ratings/average/@value")
-        |> if_charlist_convert_to_float(),
+      playing_time: xpath(item, ~x"./playingtime/@value"Io),
+      min_play_time: xpath(item, ~x"./minplaytime/@value"Io),
+      max_play_time: xpath(item, ~x"./maxplaytime/@value"Io),
+      average_rating: xpath(item, ~x"./statistics/ratings/average/@value"Fo),
       average_weight:
-        item
-        |> xpath(~x"./statistics/ratings/averageweight/@value")
-        |> if_charlist_convert_to_float(),
-      categories:
-        item
-        |> xpath(~x"./link[@type='boardgamecategory']/@value"l)
-        |> Enum.map(&if_charlist_convert_to_string/1),
-      mechanics:
-        item
-        |> xpath(~x"./link[@type='boardgamemechanic']/@value"l)
-        |> Enum.map(&if_charlist_convert_to_string/1),
-      families:
-        item
-        |> xpath(~x"./link[@type='boardgamefamily']/@value"l)
-        |> Enum.map(&if_charlist_convert_to_string/1),
-      expansions:
-        item
-        |> xpath(~x"./link[@type='boardgameexpansion']/@value"l)
-        |> Enum.map(&if_charlist_convert_to_string/1),
-      designers:
-        item
-        |> xpath(~x"./link[@type='boardgamedesigner']/@value"l)
-        |> Enum.map(&if_charlist_convert_to_string/1),
-      artists:
-        item
-        |> xpath(~x"./link[@type='boardgameartist']/@value"l)
-        |> Enum.map(&if_charlist_convert_to_string/1),
-      publishers:
-        item
-        |> xpath(~x"./link[@type='boardgamepublisher']/@value"l)
-        |> Enum.map(&if_charlist_convert_to_string/1)
+        xpath(item, ~x"./statistics/ratings/averageweight/@value"Fo),
+      categories: xpath(item, ~x"./link[@type='boardgamecategory']/@value"Sl),
+      mechanics: xpath(item, ~x"./link[@type='boardgamemechanic']/@value"Sl),
+      families: xpath(item, ~x"./link[@type='boardgamefamily']/@value"Sl),
+      expansions: xpath(item, ~x"./link[@type='boardgameexpansion']/@value"Sl),
+      designers: xpath(item, ~x"./link[@type='boardgamedesigner']/@value"Sl),
+      artists: xpath(item, ~x"./link[@type='boardgameartist']/@value"Sl),
+      publishers: xpath(item, ~x"./link[@type='boardgamepublisher']/@value"Sl)
     }
   end
 
@@ -237,23 +191,6 @@ defmodule BggXmlApi2.Item do
   defp if_charlist_convert_to_string(possible_charlist) do
     if is_list(possible_charlist) do
       List.to_string(possible_charlist)
-    else
-      possible_charlist
-    end
-  end
-
-  defp if_charlist_convert_to_integer(possible_charlist) do
-    if is_list(possible_charlist) do
-      List.to_integer(possible_charlist)
-    else
-      possible_charlist
-    end
-  end
-
-  defp if_charlist_convert_to_float(possible_charlist) do
-    if is_list(possible_charlist) do
-      {float, _} = possible_charlist |> List.to_string() |> Float.parse()
-      float
     else
       possible_charlist
     end
